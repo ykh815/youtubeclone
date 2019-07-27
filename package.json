@@ -2,10 +2,11 @@
   "name": "youtubeclone",
   "version": "1.0.0",
   "description": "Cloning Youbute with Vanilla and NodeJS",
-  "main": "index.js",
   "author": "Bewan Yoo",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
