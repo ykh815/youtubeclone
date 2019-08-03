@@ -1,6 +1,3 @@
-# Video File
-videos
-
 # Logs
 logs
 *.log
@@ -91,3 +88,4 @@ typings/
 .dynamodb/
 
 package-lock.json
+uploads

@@ -14,6 +14,7 @@ const app = express();
 // Start Middleware
 app.use(helmet());    // for security
 app.set('view engine', "pug");
+app.use("/uploads", express.static("uploads"));    // directiroy 에서  file 을 보내주는 middleware
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
