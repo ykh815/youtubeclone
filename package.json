@@ -15,12 +15,17 @@
     "mongoose": "^5.6.7",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "eslint-plugin-prettier": "^3.1.0",
     "pug": "^2.0.4"
   },
   "scripts": {
     "start": "nodemon --exec babel-node init.js --delay 2"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.1"
   }
 }
