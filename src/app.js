@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
+import path from "path";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
@@ -23,8 +24,8 @@ const CookieStore = MongoStore(session);
 // Start Middleware
 app.use(helmet()); // for security
 app.set("view engine", "pug");
-app.use("/uploads", express.static("uploads")); // directiroy 에서  file 을 보내주는 middleware
-app.use("/static", express.static("static")); // directiroy 에서  file 을 보내주는 middleware
+app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "satic")));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
