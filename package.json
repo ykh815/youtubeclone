@@ -4,7 +4,6 @@
   "description": "Cloning Youbute with Vanilla and NodeJS",
   "author": "Bewan Yoo",
   "dependencies": {
-    "@babel/cli": "^7.6.0",
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/polyfill": "^7.4.4",
@@ -53,6 +52,7 @@
     "prestart": "npm run build"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.0.0",
