@@ -4,8 +4,8 @@ import {
   userDetail,
   getEditProfile,
   getChangePassword,
-  postChangePassword,
-  postEditProfile
+  postEditProfile,
+  postChangePassword
 } from "../controllers/userController";
 import { onlyPrivate, uploadAvatar } from "../middlewares";
 

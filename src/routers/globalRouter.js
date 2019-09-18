@@ -4,10 +4,10 @@ import routes from "../routes";
 import { home, search } from "../controllers/videoController";
 import {
   getJoin,
-  postJoin,
   getLogin,
-  postLogin,
   logout,
+  postJoin,
+  postLogin,
   githubLogin,
   postGithubLogIn,
   getMe

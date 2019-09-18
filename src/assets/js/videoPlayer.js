@@ -3,7 +3,7 @@ import getBlobDuration from "get-blob-duration";
 const videoContainer = document.getElementById("jsVideoPlayer");
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
-const volumeBtn = document.getElementById("jsVolumeButton");
+const volumeBtn = document.getElementById("jsVolumeBtn");
 const fullScrnBtn = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
@@ -32,13 +32,13 @@ function handleVolumeClick() {
     volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
     volumeRange.value = videoPlayer.volume;
   } else {
-    videoRange.value = 0;
+    volumeRange.value = 0;
     videoPlayer.muted = true;
     volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
   }
 }
 
-function goFullScreenClick() {
+function goFullScreen() {
   if (videoContainer.requestFullscreen) {
     videoContainer.requestFullscreen();
   } else if (videoContainer.mozRequestFullScreen) {
@@ -48,15 +48,14 @@ function goFullScreenClick() {
   } else if (videoContainer.msRequestFullscreen) {
     videoContainer.msRequestFullscreen();
   }
-  fullScrnBtn.innerHtml = '<i class="fas fa-compress"></i>';
-  fullScrnBtn.removeEventListener("click", goFullScreenClick);
-  fullScrnBtn.addEventListener("click", exitFullScreenClick);
+  fullScrnBtn.innerHTML = '<i class="fas fa-compress"></i>';
+  fullScrnBtn.removeEventListener("click", goFullScreen);
+  fullScrnBtn.addEventListener("click", exitFullScreen);
 }
 
-function exitFullScreenClick() {
-  fullScrnBtn.innerHtml = '<i class="fas fa-expand"></i>';
-  fullScrnBtn.removeEventListener("click", exitFullScreenClick);
-  fullScrnBtn.addEventListener("click", goFullScreenClick);
+function exitFullScreen() {
+  fullScrnBtn.innerHTML = '<i class="fas fa-expand"></i>';
+  fullScrnBtn.addEventListener("click", goFullScreen);
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.mozCancelFullScreen) {
@@ -77,26 +76,28 @@ const formatDate = seconds => {
   if (hours < 10) {
     hours = `0${hours}`;
   }
-
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-
-  if (totalSeconds < 10) {
+  if (seconds < 10) {
     totalSeconds = `0${totalSeconds}`;
   }
-
   return `${hours}:${minutes}:${totalSeconds}`;
 };
 
 function getCurrentTime() {
-  currentTime.innerHTML = format(Math.floor(videoPlayer.currentTime));
+  currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
 }
 
 async function setTotalTime() {
-  const blob = await fetch(videoPlayer.src).then(response => response.blob());
-  const duration = await getBlobDuration(blob);
-  const totalTimeString = format(duration);
+  let duration;
+  if (!isFinite(videoPlayer.duration)) {
+    const blob = await fetch(videoPlayer.src).then(response => response.blob());
+    duration = await getBlobDuration(blob);
+  } else {
+    duration = videoPlayer.duration;
+  }
+  const totalTimeString = formatDate(duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000);
 }
@@ -110,21 +111,22 @@ function handleEnded() {
 function handleDrag(event) {
   const {
     target: { value }
-  } = event.target.value;
+  } = event;
   videoPlayer.volume = value;
   if (value >= 0.6) {
-    volumeBtn.innerHtml = '<i class="fas fa-volume-up"></i>';
+    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
   } else if (value >= 0.2) {
-    volumeBtn.innerHtml = '<i class="fas fa-volume-down"></i>';
+    volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
   } else {
-    volumeBtn.innerHtml = '<i class="fas fa-volume-off"></i>';
+    volumeBtn.innerHTML = '<i class="fas fa-volume-off"></i>';
   }
 }
 
 function init() {
+  videoPlayer.volume = 0.5;
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
-  fullScrnBtn.addEventListener("click", goFullScreenClick);
+  fullScrnBtn.addEventListener("click", goFullScreen);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
   videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleDrag);

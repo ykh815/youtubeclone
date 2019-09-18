@@ -1,5 +1,5 @@
-const recorderContainer = document.getElementById("jsRecorderContainer");
-const recordBtn = document.getElementById("jsRecordtBtn");
+const recorderContainer = document.getElementById("jsRecordContainer");
+const recordBtn = document.getElementById("jsRecordBtn");
 const videoPreview = document.getElementById("jsVideoPreview");
 
 let streamObject;
@@ -16,7 +16,6 @@ const handleVideoData = event => {
 
 const stopRecording = () => {
   videoRecorder.stop();
-  streamObject.getVideoTracks()[0].stop();
   recordBtn.removeEventListener("click", stopRecording);
   recordBtn.addEventListener("click", getVideo);
   recordBtn.innerHTML = "Start recording";
@@ -42,7 +41,7 @@ const getVideo = async () => {
     streamObject = stream;
     startRecording();
   } catch (error) {
-    recordBtn.innerHtml = "☹️Can't record";
+    recordBtn.innerHTML = "☹️Can't record";
   } finally {
     recordBtn.removeEventListener("click", getVideo);
   }

@@ -4,9 +4,9 @@ import {
   getUpload,
   postUpload,
   videoDetail,
+  deleteVideo,
   getEditVideo,
-  postEditVideo,
-  deleteVideo
+  postEditVideo
 } from "../controllers/videoController";
 import { uploadVideo, onlyPrivate } from "../middlewares";
 

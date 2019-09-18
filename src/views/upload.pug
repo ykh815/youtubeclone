@@ -2,9 +2,9 @@ extends layouts/main
 
 block content
     .form-container
-        .record-container#jsRecorderContainer
+        .record-container#jsRecordContainer
             video#jsVideoPreview
-            button#jsRecordtBtn Start Recording
+            button#jsRecordBtn Start Recording
         form(action=`/videos${routes.upload}`, method="post", enctype="multipart/form-data")
             div.fileUpload
                 label(for="file") Video File
@@ -12,3 +12,4 @@ block content
             input(type="text", placeholder="Title", name="title", required=true)
             textarea(name="description", placeholder="Description", required=true)
             input(type="submit", value="Upload Video")
+            
